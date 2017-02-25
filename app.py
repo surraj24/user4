@@ -35,8 +35,19 @@ def makeWebhookResult(req):
     id1 = parameters.get("user-id")
     pass1 = parameters.get("password")
     cost = {'Suraj':100, 'Shubham':200, 'Raju':300, 'Yash':400, 'Ravi':500}
+    ip1 = {'Suraj':'192.168.1.0', 'Shubham':200, 'Raju':300, 'Yash':400, 'Ravi':500}
     if(str(cost[id1])==pass1):
-        speech = id1 + ". You are Suceesfully login. Do you have any problem with our product."
+        myUrl=str(ip1[id1])
+        
+        ping=subprocess.Popen (
+            ["ping", myUrl],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        
+        out, error=ping.communicate()
+        out=str(out);
+        speech = id1 + ". You are Suceesfully login. Do you have any problem with our product." + out
     else:
         speech = "Wrong credential"
     
